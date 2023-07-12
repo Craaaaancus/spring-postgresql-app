@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = {"http://localhost:8081", "http://localhost:8080"})
 @RestController
 @RequestMapping("/game")
 public class GameController {
@@ -17,6 +17,7 @@ public class GameController {
     GameRepository gameRepository;
 
     @GetMapping("/{id}")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<Game> getGameById(@PathVariable("id") long id){
         Optional<Game> gameData = gameRepository.findById(id);
         if (gameData.isPresent()) {
