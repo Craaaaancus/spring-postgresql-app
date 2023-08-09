@@ -2,6 +2,7 @@ package com.spring.jpa.postgresql.model;
 
 // import javax.persistence.*; // for Spring Boot 2
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "games")
@@ -13,7 +14,7 @@ public class Game {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "description")
+    @Column(name = "description", length = 512)
     private String description;
 
     public long getId() {
