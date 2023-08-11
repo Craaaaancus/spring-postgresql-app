@@ -35,7 +35,7 @@ import com.spring.jpa.postgresql.repository.UserRepository;
 import com.spring.jpa.postgresql.security.jwt.JwtUtils;
 import com.spring.jpa.postgresql.security.services.UserDetailsImpl;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = {"http://127.0.0.1:3000", "http://localhost:8080"}, maxAge = 3600, allowCredentials = "true")
 @RestController
 public class AuthController {
     @Autowired
@@ -56,7 +56,7 @@ public class AuthController {
     @Autowired
     RefreshTokenService refreshTokenService;
 
-    @PostMapping("/login")
+    @PostMapping(value = "/login", consumes = {"application/json"})
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager
@@ -91,7 +91,7 @@ public class AuthController {
                 );
     }
 
-    @PostMapping("/register")
+    @PostMapping(value = "/register", consumes = {"application/json"})
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
@@ -142,7 +142,7 @@ public class AuthController {
     }
 
     @PostMapping("/signout")
-    public ResponseEntity<?> logoutUser() {
+    public ResponseEntity<?> logoutUser(HttpServletRequest request) {
         Object principle = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principle.toString() != "anonymousUser") {
             Long userId = ((UserDetailsImpl) principle).getId();

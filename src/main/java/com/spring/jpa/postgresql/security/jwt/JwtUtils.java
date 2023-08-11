@@ -129,6 +129,13 @@ public class JwtUtils {
     }
 
     private ResponseCookie generateCookie(String name, String value, String path) {
+        if (Objects.equals(name, jwtCookie)){
+            return ResponseCookie
+                    .from(name, value)
+                    .path(path)
+                    .httpOnly(true)
+                    .build();
+        }
         return ResponseCookie
                 .from(name, value)
                 .path(path)

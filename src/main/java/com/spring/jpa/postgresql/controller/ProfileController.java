@@ -1,7 +1,5 @@
 package com.spring.jpa.postgresql.controller;
 
-import com.spring.jpa.postgresql.exception.TokenRefreshException;
-import com.spring.jpa.postgresql.model.RefreshToken;
 import com.spring.jpa.postgresql.payload.response.MessageResponse;
 import com.spring.jpa.postgresql.repository.RefreshTokenRepository;
 import com.spring.jpa.postgresql.security.jwt.JwtUtils;
@@ -16,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = {"http://127.0.0.1:3000", "http://localhost:8080"}, maxAge = 3600, allowCredentials = "true")
 @RestController
 public class ProfileController {
     @Autowired

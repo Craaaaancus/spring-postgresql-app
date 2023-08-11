@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.spring.jpa.postgresql.security.jwt.AuthEntryPointJwt;
 import com.spring.jpa.postgresql.security.jwt.AuthTokenFilter;
 import com.spring.jpa.postgresql.security.services.UserDetailsServiceImpl;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Configuration
 @EnableMethodSecurity
@@ -65,7 +66,7 @@ public class WebSecurityConfig {
                  .requestMatchers("/game/**", "/games").permitAll()
                  .requestMatchers("/register", "/login", "/signout", "/verify", "/refresh").permitAll()
                  .requestMatchers("/test/**").permitAll()
-                 .anyRequest().authenticated()
+                 .anyRequest().permitAll()
             );
 
         http.authenticationProvider(authenticationProvider());
